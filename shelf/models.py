@@ -39,9 +39,9 @@ class Book(BaseModel):
         return f"{self.title} by {self.author.fullname}"
     
 
-class Favorite(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='favorites')
-    book = models.ForeignKey(Book, on_delete=models.SET_NULL, related_name='favorited_by')
+class Favorite(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='favorited_by')
     added_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

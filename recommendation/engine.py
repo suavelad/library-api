@@ -5,31 +5,33 @@ from io import StringIO
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Load the dataset
 
-# data = pd.read_json('https://www.kaggle.com/datasets/opalskies/large-books-metadata-dataset-50-mill-entries/books.json')
-
-url = 'https://www.kaggle.com/code/mamudukamilo/notebookfdc5182903/input/large-books-metadata-dataset-50-mill-entries/books.json/books.json'
-
-# Make a request to the URL with SSL verification disabled
-response = requests.get(url, verify=False)
-
-# Convert the content to a StringIO object and read it into pandas
-data = pd.read_json(StringIO(response.text))
-
-
-data['Features'] = data['author_name']
-
-vectorizer = TfidfVectorizer(stop_words='english')
-
-tfidf_matrix = vectorizer.fit_transform(data['Features'])
-
-cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
 
 
 
 # Function to recommend books
-def recommend_books(title, cosine_sim=cosine_sim):
+def recommend_books(title):
+
+    # Load the dataset
+
+    # data = pd.read_json('https://www.kaggle.com/datasets/opalskies/large-books-metadata-dataset-50-mill-entries/books.json')
+
+    url = 'https://www.kaggle.com/code/mamudukamilo/notebookfdc5182903/input/large-books-metadata-dataset-50-mill-entries/books.json/books.json'
+
+    # Make a request to the URL with SSL verification disabled
+    response = requests.get(url, verify=False)
+
+    # Convert the content to a StringIO object and read it into pandas
+    data = pd.read_json(StringIO(response.text))
+
+    data['Features'] = data['author_name']
+
+    vectorizer = TfidfVectorizer(stop_words='english')
+
+    tfidf_matrix = vectorizer.fit_transform(data['Features'])
+
+    cosine_sim = cosine_similarity(tfidf_matrix, tfidf_matrix)
+
     # Get the index of the book that matches the title
     idx = data[data['title'] == title].index[0]
 

@@ -13,3 +13,6 @@ class AuthorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Author
         exclude = ("created_by",)
+
+class FavoriteSerializer(serializers.Serializer):
+    book_id = serializers.CharField(required=True)
