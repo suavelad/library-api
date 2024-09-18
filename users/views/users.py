@@ -19,7 +19,7 @@ from library.utils import (
     serializer_errors,
     serializer_error_400,
     get_paginated_output,
-    success_20X,
+    success_200,
 )
 
 User = get_user_model()
